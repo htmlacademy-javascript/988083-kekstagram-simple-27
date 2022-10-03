@@ -9,7 +9,7 @@ function getRandomPositiveNumber( min, max ) {
 }
 getRandomPositiveNumber( 5, 10 );
 
-function isLenghtOverflow( string, maxLength ) {
+function isLengthOverflow( string, maxLength ) {
   return string.length <= maxLength;
 }
-isLenghtOverflow( 'Hello, World', 12 );
+isLengthOverflow( 'Hello, World', 12 );
