@@ -1,4 +1,4 @@
-function getRandomPosotiveNumber( min, max ) {
+function getRandomPositiveNumber( min, max ) {
   if ( min < 0 || max < 0 || typeof( min ) !== 'number' || typeof( max ) !== 'number' ) {
     return NaN;
   }
@@ -7,7 +7,7 @@ function getRandomPosotiveNumber( min, max ) {
 
   return Math.floor( Math.random() * ( upper - lower + 1 ) + min );
 }
-getRandomPosotiveNumber( 5, 10 );
+getRandomPositiveNumber( 5, 10 );
 
 function isLenghtOverflow( string, maxLength ) {
   return string.length <= maxLength;
