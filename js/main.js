@@ -1,4 +1,3 @@
-let START_COUNTER = 0;
 const SIMILIAR_POSTS_COUNT = 25;
 const POST_DESCRIPTIONS = [
   'Далеко-далеко за, словесными горами в стране гласных и согласных живут рыбные тексты. Его если путь родного вдали переписали но своих реторический снова, текста языком рыбного журчит языкового.',
@@ -8,8 +7,8 @@ const POST_DESCRIPTIONS = [
   'Даль ручеек коварный точках реторический! Возвращайся домах решила имеет дал языком дорогу, не последний сих! Собрал до все что заголовок, строчка ведущими злых рукописи о, ручеек семантика, составитель коварных это?',
   'Послушавшись, которой бросил она продолжил заголовок которое текстов использовало? Жаренные взобравшись продолжил точках необходимыми строчка, подпоясал,  своих сих щеке путь! Речью однажды грамматики запятой!'
 ];
-const uniqueIDs = createUniqValues( SIMILIAR_POSTS_COUNT + 1 );
-const uniqueFileNames = createUniqValues( SIMILIAR_POSTS_COUNT + 1 );
+const uniqueIDs = createUniqValues( SIMILIAR_POSTS_COUNT );
+const uniqueFileNames = createUniqValues( SIMILIAR_POSTS_COUNT );
 
 function getRandomPositiveNumber( min, max ) {
   if ( min < 0 || max < 0 ) {
@@ -19,10 +18,6 @@ function getRandomPositiveNumber( min, max ) {
   const upper = Math.floor( Math.max( min, max ) );
 
   return Math.floor( Math.random() * ( upper - lower + 1 ) + lower );
-}
-
-function getLeadingZero( elementNumber ) {
-  return ( elementNumber.toString().length === 1 ) ? `0${elementNumber}` : elementNumber;
 }
 
 function getRandomArrayElement( elements ) {
@@ -41,11 +36,10 @@ function createUniqValues( count ) {
   return [ ...uniqueValues ];
 }
 
-function createPost() {
-  START_COUNTER++;
+function createPost( i ) {
   return {
-    id: uniqueIDs[ START_COUNTER ],
-    url: `photos/${getLeadingZero(uniqueFileNames[START_COUNTER])}.jpg`,
+    id: uniqueIDs[ i ],
+    url: `photos/${uniqueFileNames[ i ]}.jpg`,
     description: getRandomArrayElement( POST_DESCRIPTIONS ),
     likes: getRandomPositiveNumber( 15, 200 ),
     comments: getRandomPositiveNumber( 0, 200 ),
@@ -53,9 +47,11 @@ function createPost() {
 }
 
 function createRandomPosts( count ) {
-  return Array.from( {
-    length: count
-  }, createPost );
+  const posts = [];
+  for ( let i = 0; i < count; i++ ) {
+    posts.push( createPost( i ) );
+  }
+  return posts;
 }
 
 createRandomPosts( SIMILIAR_POSTS_COUNT );
