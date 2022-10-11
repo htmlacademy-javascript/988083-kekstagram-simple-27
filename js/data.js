@@ -1,12 +1,9 @@
 import {
-  SIMILIAR_POSTS_COUNT,
-} from './constants.js';
-
-import {
   createUniqValues,
 } from './utils.js';
 
-export const POST_DESCRIPTIONS = [
+const SIMILIAR_POSTS_COUNT = 25;
+const POST_DESCRIPTIONS = [
   'Далеко-далеко за, словесными горами в стране гласных и согласных живут рыбные тексты. Его если путь родного вдали переписали но своих реторический снова, текста языком рыбного журчит языкового.',
   'Которой рукопись то букв скатился всеми текстов пояс свой, заголовок она. Букв залетают текстами переулка моей большого курсивных не последний запятых переписали встретил снова океана всемогущая даль коварных.',
   'Продолжил необходимыми ему текстами живет запятой текста инициал сбить. Толку, лучше скатился. Щеке до образ страна бросил строчка вершину реторический!',
@@ -14,5 +11,12 @@ export const POST_DESCRIPTIONS = [
   'Даль ручеек коварный точках реторический! Возвращайся домах решила имеет дал языком дорогу, не последний сих! Собрал до все что заголовок, строчка ведущими злых рукописи о, ручеек семантика, составитель коварных это?',
   'Послушавшись, которой бросил она продолжил заголовок которое текстов использовало? Жаренные взобравшись продолжил точках необходимыми строчка, подпоясал,  своих сих щеке путь! Речью однажды грамматики запятой!'
 ];
-export const uniqueIDs = createUniqValues( SIMILIAR_POSTS_COUNT );
-export const uniqueFileNames = createUniqValues( SIMILIAR_POSTS_COUNT );
+const UNIQUE_ID = createUniqValues( SIMILIAR_POSTS_COUNT );
+const UNIQUE_FILE_NAMES = createUniqValues( SIMILIAR_POSTS_COUNT );
+
+export {
+  SIMILIAR_POSTS_COUNT,
+  POST_DESCRIPTIONS,
+  UNIQUE_ID,
+  UNIQUE_FILE_NAMES,
+};

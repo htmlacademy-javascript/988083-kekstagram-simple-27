@@ -1,4 +1,4 @@
-export function getRandomPositiveNumber( min, max ) {
+function getRandomPositiveNumber( min, max ) {
   if ( min < 0 || max < 0 ) {
     return NaN;
   }
@@ -8,18 +8,33 @@ export function getRandomPositiveNumber( min, max ) {
   return Math.floor( Math.random() * ( upper - lower + 1 ) + lower );
 }
 
-export function getRandomArrayElement( elements ) {
+function getRandomArrayElement( elements ) {
   return elements[ getRandomPositiveNumber( 0, elements.length - 1 ) ];
 }
 
-export function isLengthOverflow( str, maxLength ) {
+function isLengthOverflow( str, maxLength ) {
   return str.length <= maxLength;
 }
 
-export function createUniqValues( count ) {
+function createUniqValues( count ) {
   const uniqueValues = new Set();
   while ( uniqueValues.size < count ) {
     uniqueValues.add( getRandomPositiveNumber( 1, count ) );
   }
   return [ ...uniqueValues ];
 }
+
+function countGenerator() {
+  let counterStart = 0;
+  return function() {
+    return counterStart++;
+  };
+}
+
+export {
+  getRandomPositiveNumber,
+  getRandomArrayElement,
+  createUniqValues,
+  countGenerator,
+  isLengthOverflow,
+};
