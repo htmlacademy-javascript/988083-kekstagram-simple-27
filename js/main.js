@@ -1,5 +1,5 @@
 import {
-  createRandomPosts,
-} from './generate-post.js';
+  renderPosts,
+} from './render-posts.js';
 
-createRandomPosts();
+renderPosts();
