@@ -1,9 +1,5 @@
 import {
-  SIMILIAR_POSTS_COUNT,
-} from './constants.js';
+  renderPosts,
+} from './render-posts.js';
 
-import {
-  createRandomPosts,
-} from './app.js';
-
-createRandomPosts( SIMILIAR_POSTS_COUNT );
+renderPosts();
