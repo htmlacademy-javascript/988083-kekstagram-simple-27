@@ -35,14 +35,6 @@ function isEscKey( evt ) {
   return evt.key === 'Escape';
 }
 
-function resetField( field ) {
-  field.value = '';
-}
-
-function closeMessage( message ) {
-  message.remove();
-}
-
 export {
   getRandomPositiveNumber,
   getRandomArrayElement,
@@ -50,6 +42,4 @@ export {
   countGenerator,
   isLengthOverflow,
   isEscKey,
-  resetField,
-  closeMessage,
 };
