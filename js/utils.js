@@ -31,10 +31,15 @@ function countGenerator() {
   };
 }
 
+function isEscKey( evt ) {
+  return evt.key === 'Escape';
+}
+
 export {
   getRandomPositiveNumber,
   getRandomArrayElement,
   createUniqValues,
   countGenerator,
   isLengthOverflow,
+  isEscKey,
 };
