@@ -36,6 +36,7 @@ function zoomIn() {
 }
 
 export {
+  previewImage,
   setPreviewDefault,
   zoomIn,
   zoomOut,
