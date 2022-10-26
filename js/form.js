@@ -1,8 +1,10 @@
 import {
   isEscKey,
+  resetStyleElement,
 } from './utils.js';
 
 import {
+  previewImage,
   setPreviewDefault,
   zoomIn,
   zoomOut,
@@ -37,6 +39,7 @@ function openModal() {
 
 function closeModal() {
   uploadForm.reset();
+  resetStyleElement( previewImage );
   modalOverlay.classList.add( 'hidden' );
   document.body.classList.remove( 'modal-open' );
   zoomOutBtn.removeEventListener( 'click', zoomOut );
