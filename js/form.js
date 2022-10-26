@@ -5,7 +5,7 @@ import {
 
 import {
   previewImage,
-  setPreviewDefault,
+  setDefaultScale,
   zoomIn,
   zoomOut,
   zoomInBtn,
@@ -37,7 +37,7 @@ function onEscKeydown( evt ) {
 function openModal() {
   modalOverlay.classList.remove( 'hidden' );
   document.body.classList.add( 'modal-open' );
-  setPreviewDefault();
+  setDefaultScale();
   hideUiSlider();
   zoomOutBtn.addEventListener( 'click', zoomOut );
   zoomInBtn.addEventListener( 'click', zoomIn );

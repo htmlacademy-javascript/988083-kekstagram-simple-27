@@ -9,7 +9,7 @@ const ImageSettings = {
   ScaleStep: 25,
 };
 
-function setPreviewDefault() {
+function setDefaultScale() {
   scaleInputElement.value = `${ImageSettings.DefaultSize}%`;
   previewImage.style.transform = `scale(${ImageSettings.DefaultSize / 100})`;
 }
@@ -37,7 +37,7 @@ function zoomIn() {
 
 export {
   previewImage,
-  setPreviewDefault,
+  setDefaultScale,
   zoomIn,
   zoomOut,
   zoomInBtn,

@@ -6,7 +6,7 @@ import {
 } from './utils.js';
 
 let currentEffect;
-const SLIDER_OPTIONS_DEFAULT = {
+const SLIDER_DEFAULT_OPTIONS = {
   range: {
     min: 0,
     max: 100,
@@ -30,7 +30,7 @@ const effects = {
   chrome: {
     filter: 'grayscale',
     units: '',
-    sliderValue: {
+    sliderSettings: {
       range: {
         min: 0,
         max: 1,
@@ -42,7 +42,7 @@ const effects = {
   sepia: {
     filter: 'sepia',
     units: '',
-    sliderValue: {
+    sliderSettings: {
       range: {
         min: 0,
         max: 1,
@@ -54,7 +54,7 @@ const effects = {
   marvin: {
     filter: 'invert',
     units: '%',
-    sliderValue: {
+    sliderSettings: {
       range: {
         min: 0,
         max: 100,
@@ -66,7 +66,7 @@ const effects = {
   phobos: {
     filter: 'blur',
     units: 'px',
-    sliderValue: {
+    sliderSettings: {
       range: {
         min: 0,
         max: 3,
@@ -78,7 +78,7 @@ const effects = {
   heat: {
     filter: 'brightness',
     units: '',
-    sliderValue: {
+    sliderSettings: {
       range: {
         min: 1,
         max: 3,
@@ -90,8 +90,8 @@ const effects = {
 };
 const effectListElement = document.querySelector( '.effects__list' );
 const sliderElement = document.querySelector( '.effect-level__slider' );
-const sliderValue = document.querySelector( '.effect-level__value' );
-noUiSlider.create( sliderElement, SLIDER_OPTIONS_DEFAULT );
+const effectValue = document.querySelector( '.effect-level__value' );
+noUiSlider.create( sliderElement, SLIDER_DEFAULT_OPTIONS );
 
 function setUiSliderSettings( evt ) {
   if ( evt.target.value === 'none' ) {
@@ -114,16 +114,16 @@ function addEffect( evt ) {
 function hideUiSlider() {
   sliderElement.classList.add( 'hidden' );
   sliderElement.setAttribute( 'disabled', true );
-  sliderValue.value = '';
+  effectValue.value = '';
 }
 
 function showUiSlider() {
-  sliderElement.noUiSlider.updateOptions( currentEffect.sliderValue );
+  sliderElement.noUiSlider.updateOptions( currentEffect.sliderSettings );
   sliderElement.removeAttribute( 'disabled' );
   sliderElement.classList.remove( 'hidden' );
   sliderElement.noUiSlider.on( 'update', () => {
     previewImage.style.filter = `${currentEffect.filter}(${sliderElement.noUiSlider.get()}${currentEffect.units})`;
-    sliderValue.value = sliderElement.noUiSlider.get();
+    effectValue.value = sliderElement.noUiSlider.get();
   } );
 }
 
