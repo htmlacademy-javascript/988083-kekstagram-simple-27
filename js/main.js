@@ -8,15 +8,14 @@ import {
   closeModalBtn,
   openModal,
   closeModal,
-  validationRules,
 } from './form.js';
+
+import {
+  sendForm,
+} from './send-form.js';
 
 renderPosts();
 
 uploadFileBtn.addEventListener( 'change', openModal );
 closeModalBtn.addEventListener( 'click', closeModal );
-uploadForm.addEventListener( 'submit', ( evt ) => {
-  if ( !validationRules.validate() ) {
-    evt.preventDefault();
-  }
-} );
+uploadForm.addEventListener( 'submit', sendForm );

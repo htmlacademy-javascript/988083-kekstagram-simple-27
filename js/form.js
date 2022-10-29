@@ -46,14 +46,16 @@ function openModal() {
 }
 
 function closeModal() {
-  uploadForm.reset();
-  resetStyleElement( previewImage );
-  modalOverlay.classList.add( 'hidden' );
-  document.body.classList.remove( 'modal-open' );
-  zoomOutBtn.removeEventListener( 'click', zoomOut );
-  zoomInBtn.removeEventListener( 'click', zoomIn );
-  effectListElement.removeEventListener( 'click', addEffect );
-  document.removeEventListener( 'keydown', onEscKeydown );
+  if ( !document.body.classList.contains( 'is-error' ) ) {
+    uploadForm.reset();
+    resetStyleElement( previewImage );
+    modalOverlay.classList.add( 'hidden' );
+    document.body.classList.remove( 'modal-open' );
+    zoomOutBtn.removeEventListener( 'click', zoomOut );
+    zoomInBtn.removeEventListener( 'click', zoomIn );
+    effectListElement.removeEventListener( 'click', addEffect );
+    document.removeEventListener( 'keydown', onEscKeydown );
+  }
 }
 
 export {

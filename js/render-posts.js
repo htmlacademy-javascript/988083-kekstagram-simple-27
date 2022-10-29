@@ -1,8 +1,11 @@
 import {
-  createRandomPosts,
+  getPosts,
 } from './generate-post.js';
 
-const randomPosts = createRandomPosts();
+import {
+  showError,
+} from './error-message.js';
+
 const postsContainer = document.querySelector( '.pictures' );
 const postTemplate = document.querySelector( '#picture' ).content.querySelector( '.picture' );
 const postsFragment = document.createDocumentFragment();
@@ -21,6 +24,10 @@ function setupPost( {
 }
 
 export function renderPosts() {
-  randomPosts.forEach( setupPost );
-  postsContainer.appendChild( postsFragment );
+  getPosts().then( ( posts ) => {
+    posts.forEach( setupPost );
+    postsContainer.appendChild( postsFragment );
+  } ).catch( () => {
+    showError( 'Ошибка загрузки изображений', 'Как нибудь в другой раз' );
+  } );
 }
