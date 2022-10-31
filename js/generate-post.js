@@ -1,13 +1,13 @@
-const REQUEST_URL = 'https://27.javascript.pages.academy/kekstagram-simple/data';
-const REQUEST_METHOD = 'GET';
-const REQUEST_HEADERS = {
-  'content-type': 'application/json'
-};
+import {
+  HttpMethod,
+  API_URL,
+  JSON_HEADERS,
+} from './constants.js';
 
 function sendRequest() {
-  return fetch( REQUEST_URL, {
-    method: REQUEST_METHOD,
-    headers: REQUEST_HEADERS,
+  return fetch( `${API_URL}/data`, {
+    method: HttpMethod.GET,
+    headers: JSON_HEADERS,
   } );
 }
 

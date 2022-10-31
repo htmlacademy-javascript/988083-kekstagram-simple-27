@@ -1,4 +1,9 @@
 import {
+  HttpMethod,
+  API_URL,
+} from './constants.js';
+
+import {
   showSuccess,
 } from './success-message.js';
 
@@ -11,12 +16,9 @@ import {
   closeModal,
 } from './form.js';
 
-const REQUEST_URL = 'https://27.javascript.pages.academy/kekstagram-simple';
-const REQUEST_METHOD = 'POST';
-
 function sendRequest( evt ) {
-  return fetch( REQUEST_URL, {
-    method: REQUEST_METHOD,
+  return fetch( API_URL, {
+    method: HttpMethod.POST,
     body: new FormData( evt.target ),
   } );
 }
