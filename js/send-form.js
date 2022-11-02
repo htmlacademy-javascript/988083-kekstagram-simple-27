@@ -16,7 +16,7 @@ import {
   closeModal,
 } from './form.js';
 
-function sendRequest( evt ) {
+function sendFormData( evt ) {
   return fetch( API_URL, {
     method: HttpMethod.POST,
     body: new FormData( evt.target ),
@@ -28,15 +28,17 @@ export function onSubmitForm( evt ) {
   const submitHandler = evt.target.querySelector( '[type="submit"]' );
   if ( validationRules.validate() ) {
     submitHandler.setAttribute( 'disabled', 'disabled' );
-    sendRequest( evt ).then( ( data ) => {
+    sendFormData( evt ).then( ( data ) => {
       if ( data.ok ) {
         submitHandler.removeAttribute( 'disabled' );
         closeModal();
         showSuccess();
+      } else {
+        showError( 'Ошибка отправки формы' );
+        submitHandler.removeAttribute( 'disabled' );
       }
     } ).catch( () => {
-      showError( 'Ошибка отправки формы' );
-      submitHandler.removeAttribute( 'disabled' );
+      showError( 'Произошла ошибка' );
     } );
   }
 }
