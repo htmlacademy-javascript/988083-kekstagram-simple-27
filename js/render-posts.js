@@ -1,6 +1,6 @@
 import {
   getPosts,
-} from './generate-post.js';
+} from './get-posts.js';
 
 import {
   showError,

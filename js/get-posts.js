@@ -4,17 +4,19 @@ import {
   JSON_HEADERS,
 } from './constants.js';
 
-function sendRequest() {
+import {
+  showError,
+} from './error-message.js';
+
+export function getPosts() {
   return fetch( `${API_URL}/data`, {
     method: HttpMethod.GET,
     headers: JSON_HEADERS,
-  } );
-}
-
-export function getPosts() {
-  return sendRequest().then( ( response ) => {
+  } ).then( ( response ) => {
     if ( response.ok ) {
       return response.json();
     }
+  } ).catch( () => {
+    showError( 'При попытке запроса произошла ошибка' );
   } );
 }

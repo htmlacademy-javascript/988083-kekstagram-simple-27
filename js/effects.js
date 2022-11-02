@@ -3,10 +3,8 @@ import {
 } from './scale.js';
 import {
   capitalizeString,
-  resetStyleElement,
 } from './utils.js';
 
-let currentEffect;
 const SLIDER_DEFAULT_OPTIONS = {
   range: {
     min: 0,
@@ -89,14 +87,16 @@ const Effects = {
     },
   },
 };
-const sliderElement = document.querySelector( '.effect-level__slider' );
-const effectValue = document.querySelector( '.effect-level__value' );
+const sliderContainer = document.querySelector( '.effect-level' );
+const sliderElement = sliderContainer.querySelector( '.effect-level__slider' );
+const effectValue = sliderContainer.querySelector( '.effect-level__value' );
+let currentEffect;
 noUiSlider.create( sliderElement, SLIDER_DEFAULT_OPTIONS );
 
 function setUiSliderSettings( evt ) {
   if ( evt.target.value === 'none' ) {
     hideUiSlider();
-    resetStyleElement( previewImage );
+    previewImage.style.filter = 'none';
   } else {
     showUiSlider();
   }
@@ -104,8 +104,6 @@ function setUiSliderSettings( evt ) {
 
 function addEffect( evt ) {
   currentEffect = Effects[ capitalizeString( evt.target.value ) ];
-  previewImage.removeAttribute( 'class' );
-  previewImage.classList.add( `effects__preview--${evt.target.value}` );
   setUiSliderSettings( evt );
 }
 
@@ -116,15 +114,15 @@ function onEffectClick( evt ) {
 }
 
 function hideUiSlider() {
-  sliderElement.classList.add( 'hidden' );
+  sliderContainer.classList.add( 'hidden' );
   sliderElement.setAttribute( 'disabled', true );
   effectValue.value = '';
 }
 
 function showUiSlider() {
   sliderElement.noUiSlider.updateOptions( currentEffect.SliderSettings );
+  sliderContainer.classList.remove( 'hidden' );
   sliderElement.removeAttribute( 'disabled' );
-  sliderElement.classList.remove( 'hidden' );
   sliderElement.noUiSlider.on( 'update', () => {
     previewImage.style.filter = `${currentEffect.Filter}(${sliderElement.noUiSlider.get()}${currentEffect.Units})`;
     effectValue.value = sliderElement.noUiSlider.get();
