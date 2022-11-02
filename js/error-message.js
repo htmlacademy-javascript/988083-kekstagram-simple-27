@@ -11,7 +11,7 @@ function showError( textMessage, buttonMessage = null ) {
     errorNode.querySelector( '.error__button' ).textContent = buttonMessage;
   }
   document.body.appendChild( errorNode );
-  document.body.classList.add( 'is-error' );
+  document.body.classList.add( 'is-showed-error' );
   errorNode.addEventListener( 'click', closeError );
   document.addEventListener( 'keydown', onEscKeydown );
 }
@@ -27,7 +27,7 @@ function closeError( evt ) {
     return;
   }
   document.querySelector( '.error' ).remove();
-  document.body.classList.remove( 'is-error' );
+  document.body.classList.remove( 'is-showed-error' );
   document.removeEventListener( 'keydown', onEscKeydown );
 }
 
