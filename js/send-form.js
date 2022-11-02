@@ -23,7 +23,7 @@ function sendRequest( evt ) {
   } );
 }
 
-export function sendForm( evt ) {
+export function onSubmitForm( evt ) {
   evt.preventDefault();
   const submitHandler = evt.target.querySelector( '[type="submit"]' );
   if ( validationRules.validate() ) {

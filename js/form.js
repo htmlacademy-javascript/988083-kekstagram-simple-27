@@ -5,16 +5,11 @@ import {
 
 import {
   previewImage,
-  setDefaultScale,
-  zoomIn,
-  zoomOut,
-  zoomInBtn,
-  zoomOutBtn,
+  scaleImage,
 } from './scale.js';
 
 import {
-  effectListElement,
-  addEffect,
+  onEffectClick,
   hideUiSlider,
 } from './effects.js';
 
@@ -37,23 +32,19 @@ function onEscKeydown( evt ) {
 function openModal() {
   modalOverlay.classList.remove( 'hidden' );
   document.body.classList.add( 'modal-open' );
-  setDefaultScale();
+  scaleImage();
   hideUiSlider();
-  zoomOutBtn.addEventListener( 'click', zoomOut );
-  zoomInBtn.addEventListener( 'click', zoomIn );
   document.addEventListener( 'keydown', onEscKeydown );
-  effectListElement.addEventListener( 'click', addEffect );
+  uploadForm.addEventListener( 'click', onEffectClick );
 }
 
 function closeModal() {
-  if ( !document.body.classList.contains( 'is-error' ) ) {
+  if ( !document.body.classList.contains( 'is-showed-error' ) ) {
     uploadForm.reset();
     resetStyleElement( previewImage );
     modalOverlay.classList.add( 'hidden' );
     document.body.classList.remove( 'modal-open' );
-    zoomOutBtn.removeEventListener( 'click', zoomOut );
-    zoomInBtn.removeEventListener( 'click', zoomIn );
-    effectListElement.removeEventListener( 'click', addEffect );
+    uploadForm.removeEventListener( 'click', onEffectClick );
     document.removeEventListener( 'keydown', onEscKeydown );
   }
 }

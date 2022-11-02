@@ -7,7 +7,12 @@ function resetStyleElement( element ) {
   element.removeAttribute( 'class' );
 }
 
+function capitalizeString( str ) {
+  return str[ 0 ].toUpperCase() + str.slice( 1 );
+}
+
 export {
+  capitalizeString,
   resetStyleElement,
   isEscKey,
 };

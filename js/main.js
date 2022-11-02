@@ -3,6 +3,10 @@ import {
 } from './render-posts.js';
 
 import {
+  onSubmitForm,
+} from './send-form.js';
+
+import {
   uploadForm,
   uploadFileBtn,
   closeModalBtn,
@@ -10,12 +14,8 @@ import {
   closeModal,
 } from './form.js';
 
-import {
-  sendForm,
-} from './send-form.js';
-
 renderPosts();
 
 uploadFileBtn.addEventListener( 'change', openModal );
 closeModalBtn.addEventListener( 'click', closeModal );
-uploadForm.addEventListener( 'submit', sendForm );
+uploadForm.addEventListener( 'submit', onSubmitForm );

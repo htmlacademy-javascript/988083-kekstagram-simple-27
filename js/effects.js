@@ -2,6 +2,7 @@ import {
   previewImage,
 } from './scale.js';
 import {
+  capitalizeString,
   resetStyleElement,
 } from './utils.js';
 
@@ -26,11 +27,11 @@ const SLIDER_DEFAULT_OPTIONS = {
     },
   },
 };
-const effects = {
-  chrome: {
-    filter: 'grayscale',
-    units: '',
-    sliderSettings: {
+const Effects = {
+  Chrome: {
+    Filter: 'grayscale',
+    Units: '',
+    SliderSettings: {
       range: {
         min: 0,
         max: 1,
@@ -39,10 +40,10 @@ const effects = {
       step: 0.1,
     },
   },
-  sepia: {
-    filter: 'sepia',
-    units: '',
-    sliderSettings: {
+  Sepia: {
+    Filter: 'sepia',
+    Units: '',
+    SliderSettings: {
       range: {
         min: 0,
         max: 1,
@@ -51,10 +52,10 @@ const effects = {
       step: 0.1,
     },
   },
-  marvin: {
-    filter: 'invert',
-    units: '%',
-    sliderSettings: {
+  Marvin: {
+    Filter: 'invert',
+    Units: '%',
+    SliderSettings: {
       range: {
         min: 0,
         max: 100,
@@ -63,10 +64,10 @@ const effects = {
       step: 1,
     },
   },
-  phobos: {
-    filter: 'blur',
-    units: 'px',
-    sliderSettings: {
+  Phobos: {
+    Filter: 'blur',
+    Units: 'px',
+    SliderSettings: {
       range: {
         min: 0,
         max: 3,
@@ -75,10 +76,10 @@ const effects = {
       step: 0.1,
     },
   },
-  heat: {
-    filter: 'brightness',
-    units: '',
-    sliderSettings: {
+  Heat: {
+    Filter: 'brightness',
+    Units: '',
+    SliderSettings: {
       range: {
         min: 1,
         max: 3,
@@ -88,7 +89,6 @@ const effects = {
     },
   },
 };
-const effectListElement = document.querySelector( '.effects__list' );
 const sliderElement = document.querySelector( '.effect-level__slider' );
 const effectValue = document.querySelector( '.effect-level__value' );
 noUiSlider.create( sliderElement, SLIDER_DEFAULT_OPTIONS );
@@ -103,11 +103,15 @@ function setUiSliderSettings( evt ) {
 }
 
 function addEffect( evt ) {
-  if ( evt.target && evt.target.closest( 'input[type="radio"]' ) ) {
-    currentEffect = effects[ evt.target.value ];
-    previewImage.removeAttribute( 'class' );
-    previewImage.classList.add( `effects__preview--${evt.target.value}` );
-    setUiSliderSettings( evt );
+  currentEffect = Effects[ capitalizeString( evt.target.value ) ];
+  previewImage.removeAttribute( 'class' );
+  previewImage.classList.add( `effects__preview--${evt.target.value}` );
+  setUiSliderSettings( evt );
+}
+
+function onEffectClick( evt ) {
+  if ( evt.target.classList.contains( 'effects__radio' ) ) {
+    addEffect( evt );
   }
 }
 
@@ -118,17 +122,16 @@ function hideUiSlider() {
 }
 
 function showUiSlider() {
-  sliderElement.noUiSlider.updateOptions( currentEffect.sliderSettings );
+  sliderElement.noUiSlider.updateOptions( currentEffect.SliderSettings );
   sliderElement.removeAttribute( 'disabled' );
   sliderElement.classList.remove( 'hidden' );
   sliderElement.noUiSlider.on( 'update', () => {
-    previewImage.style.filter = `${currentEffect.filter}(${sliderElement.noUiSlider.get()}${currentEffect.units})`;
+    previewImage.style.filter = `${currentEffect.Filter}(${sliderElement.noUiSlider.get()}${currentEffect.Units})`;
     effectValue.value = sliderElement.noUiSlider.get();
   } );
 }
 
 export {
-  effectListElement,
-  addEffect,
+  onEffectClick,
   hideUiSlider,
 };
