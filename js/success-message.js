@@ -6,19 +6,21 @@ const successMessageTemplate = document.querySelector( '#success' ).content.quer
 
 function showSuccess() {
   const successNode = successMessageTemplate.cloneNode( true );
-  const closeBtn = successNode.querySelector( '.success__button' );
   document.body.appendChild( successNode );
-  closeBtn.addEventListener( 'click', closeSuccess );
+  successNode.addEventListener( 'click', closeSuccess );
   document.addEventListener( 'keydown', onEscKeydown );
 }
 
 function onEscKeydown( evt ) {
   if ( isEscKey( evt ) ) {
-    closeSuccess();
+    closeSuccess( evt );
   }
 }
 
-function closeSuccess() {
+function closeSuccess( evt ) {
+  if ( evt.target.closest( '.success__inner' ) && !evt.target.closest( '.success__button' ) ) {
+    return;
+  }
   document.querySelector( '.success' ).remove();
   document.removeEventListener( 'keydown', onEscKeydown );
 }
