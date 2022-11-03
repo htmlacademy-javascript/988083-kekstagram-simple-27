@@ -4,11 +4,11 @@ import {
 } from './constants.js';
 
 import {
-  showSuccess,
+  showSuccessMessage,
 } from './success-message.js';
 
 import {
-  showError,
+  showErrorMessage,
 } from './error-message.js';
 
 import {
@@ -16,14 +16,12 @@ import {
   closeModal,
 } from './form.js';
 
-function sendFormData( evt ) {
-  return fetch( API_URL, {
-    method: HttpMethod.POST,
-    body: new FormData( evt.target ),
-  } );
-}
+const sendFormData = ( evt ) => fetch( API_URL, {
+  method: HttpMethod.POST,
+  body: new FormData( evt.target ),
+} );
 
-export function onSubmitForm( evt ) {
+export const onSubmitForm = ( evt ) => {
   evt.preventDefault();
   const submitHandler = evt.target.querySelector( '[type="submit"]' );
   if ( validationRules.validate() ) {
@@ -32,13 +30,14 @@ export function onSubmitForm( evt ) {
       if ( data.ok ) {
         submitHandler.removeAttribute( 'disabled' );
         closeModal();
-        showSuccess();
+        showSuccessMessage();
       } else {
-        showError( 'Ошибка отправки формы' );
         submitHandler.removeAttribute( 'disabled' );
+        showErrorMessage( 'Ошибка отправки формы' );
       }
     } ).catch( () => {
-      showError( 'Произошла ошибка' );
+      submitHandler.removeAttribute( 'disabled' );
+      showErrorMessage( 'Произошла ошибка' );
     } );
   }
-}
+};

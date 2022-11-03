@@ -1,7 +1,7 @@
-const previewImage = document.querySelector( '.img-upload__preview img' );
-const zoomOutBtn = document.querySelector( '.scale__control--smaller' );
-const zoomInBtn = document.querySelector( '.scale__control--bigger' );
-const scaleInputElement = document.querySelector( '.scale__control--value' );
+const previewImageNode = document.querySelector( '.img-upload__preview img' );
+const zoomOutBtnNode = document.querySelector( '.scale__control--smaller' );
+const zoomInBtnNode = document.querySelector( '.scale__control--bigger' );
+const scaleInputNode = document.querySelector( '.scale__control--value' );
 const ImageSettings = {
   DefaultSize: 100,
   MinSize: 25,
@@ -9,32 +9,32 @@ const ImageSettings = {
   ScaleStep: 25,
 };
 
-function scaleImage( value = ImageSettings.DefaultSize ) {
+const scaleImage = ( value = ImageSettings.DefaultSize ) => {
   const currentValue = parseInt( value, 10 );
-  scaleInputElement.value = `${currentValue}%`;
-  previewImage.style.transform = `scale(${currentValue / 100})`;
-}
+  scaleInputNode.value = `${currentValue}%`;
+  previewImageNode.style.transform = `scale(${currentValue / 100})`;
+};
 
-function onZoomOutClick() {
-  const currentScaleValue = parseInt( scaleInputElement.value, 10 );
+const onZoomOutClick = () => {
+  const currentScaleValue = parseInt( scaleInputNode.value, 10 );
   if ( currentScaleValue > ImageSettings.MinSize ) {
-    scaleInputElement.value = `${currentScaleValue - ImageSettings.ScaleStep}%`;
-    scaleImage( scaleInputElement.value );
+    scaleInputNode.value = `${currentScaleValue - ImageSettings.ScaleStep}%`;
+    scaleImage( scaleInputNode.value );
   }
-}
+};
 
-function onZoomInClick() {
-  const currentScaleValue = parseInt( scaleInputElement.value, 10 );
+const onZoomInClick = () => {
+  const currentScaleValue = parseInt( scaleInputNode.value, 10 );
   if ( currentScaleValue < ImageSettings.MaxSize ) {
-    scaleInputElement.value = `${currentScaleValue + ImageSettings.ScaleStep}%`;
-    scaleImage( scaleInputElement.value );
+    scaleInputNode.value = `${currentScaleValue + ImageSettings.ScaleStep}%`;
+    scaleImage( scaleInputNode.value );
   }
-}
+};
 
-zoomOutBtn.addEventListener( 'click', onZoomOutClick );
-zoomInBtn.addEventListener( 'click', onZoomInClick );
+zoomOutBtnNode.addEventListener( 'click', onZoomOutClick );
+zoomInBtnNode.addEventListener( 'click', onZoomInClick );
 
 export {
   scaleImage,
-  previewImage,
+  previewImageNode,
 };

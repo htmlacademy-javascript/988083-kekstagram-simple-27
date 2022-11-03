@@ -7,15 +7,15 @@ import {
 } from './send-form.js';
 
 import {
-  uploadForm,
-  uploadFileBtn,
-  closeModalBtn,
+  uploadFormNode,
+  uploadFileBtnNode,
+  closeModalBtnNode,
   openModal,
   closeModal,
 } from './form.js';
 
 renderPosts();
 
-uploadFileBtn.addEventListener( 'change', openModal );
-closeModalBtn.addEventListener( 'click', closeModal );
-uploadForm.addEventListener( 'submit', onSubmitForm );
+uploadFileBtnNode.addEventListener( 'change', openModal );
+closeModalBtnNode.addEventListener( 'click', closeModal );
+uploadFormNode.addEventListener( 'submit', onSubmitForm );
