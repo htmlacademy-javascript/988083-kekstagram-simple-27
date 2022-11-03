@@ -1,5 +1,5 @@
 import {
-  previewImage,
+  previewImageNode,
 } from './scale.js';
 import {
   capitalizeString,
@@ -14,13 +14,13 @@ const SLIDER_DEFAULT_OPTIONS = {
   step: 1,
   connect: 'lower',
   format: {
-    to: function( value ) {
+    to( value ) {
       if ( Number.isInteger( value ) ) {
         return value.toFixed( 0 );
       }
       return value.toFixed( 1 );
     },
-    from: function( value ) {
+    from( value ) {
       return parseFloat( value );
     },
   },
@@ -87,47 +87,47 @@ const Effects = {
     },
   },
 };
-const sliderContainer = document.querySelector( '.effect-level' );
-const sliderElement = sliderContainer.querySelector( '.effect-level__slider' );
-const effectValue = sliderContainer.querySelector( '.effect-level__value' );
+const sliderContainerNode = document.querySelector( '.effect-level' );
+const sliderNode = sliderContainerNode.querySelector( '.effect-level__slider' );
+const effectValueNode = sliderContainerNode.querySelector( '.effect-level__value' );
 let currentEffect;
-noUiSlider.create( sliderElement, SLIDER_DEFAULT_OPTIONS );
+noUiSlider.create( sliderNode, SLIDER_DEFAULT_OPTIONS );
 
-function setUiSliderSettings( evt ) {
+const hideUiSlider = () => {
+  sliderContainerNode.classList.add( 'hidden' );
+  sliderNode.setAttribute( 'disabled', true );
+  effectValueNode.value = '';
+};
+
+const showUiSlider = () => {
+  sliderNode.noUiSlider.updateOptions( currentEffect.SliderSettings );
+  sliderContainerNode.classList.remove( 'hidden' );
+  sliderNode.removeAttribute( 'disabled' );
+  sliderNode.noUiSlider.on( 'update', () => {
+    previewImageNode.style.filter = `${currentEffect.Filter}(${sliderNode.noUiSlider.get()}${currentEffect.Units})`;
+    effectValueNode.value = sliderNode.noUiSlider.get();
+  } );
+};
+
+const setUiSliderSettings = ( evt ) => {
   if ( evt.target.value === 'none' ) {
     hideUiSlider();
-    previewImage.style.filter = 'none';
+    previewImageNode.style.filter = 'none';
   } else {
     showUiSlider();
   }
-}
+};
 
-function addEffect( evt ) {
+const addEffect = ( evt ) => {
   currentEffect = Effects[ capitalizeString( evt.target.value ) ];
   setUiSliderSettings( evt );
-}
+};
 
-function onEffectClick( evt ) {
+const onEffectClick = ( evt ) => {
   if ( evt.target.classList.contains( 'effects__radio' ) ) {
     addEffect( evt );
   }
-}
-
-function hideUiSlider() {
-  sliderContainer.classList.add( 'hidden' );
-  sliderElement.setAttribute( 'disabled', true );
-  effectValue.value = '';
-}
-
-function showUiSlider() {
-  sliderElement.noUiSlider.updateOptions( currentEffect.SliderSettings );
-  sliderContainer.classList.remove( 'hidden' );
-  sliderElement.removeAttribute( 'disabled' );
-  sliderElement.noUiSlider.on( 'update', () => {
-    previewImage.style.filter = `${currentEffect.Filter}(${sliderElement.noUiSlider.get()}${currentEffect.Units})`;
-    effectValue.value = sliderElement.noUiSlider.get();
-  } );
-}
+};
 
 export {
   onEffectClick,

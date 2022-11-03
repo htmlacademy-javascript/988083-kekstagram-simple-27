@@ -4,7 +4,7 @@ import {
 } from './utils.js';
 
 import {
-  previewImage,
+  previewImageNode,
   scaleImage,
 } from './scale.js';
 
@@ -13,15 +13,35 @@ import {
   hideUiSlider,
 } from './effects.js';
 
-const uploadForm = document.querySelector( '#upload-select-image' );
-const modalOverlay = uploadForm.querySelector( '.img-upload__overlay' );
-const uploadFileBtn = uploadForm.querySelector( '#upload-file' );
-const closeModalBtn = uploadForm.querySelector( '#upload-cancel' );
-const validationRules = new Pristine( uploadForm, {
+const uploadFormNode = document.querySelector( '#upload-select-image' );
+const modalOverlayNode = uploadFormNode.querySelector( '.img-upload__overlay' );
+const uploadFileBtnNode = uploadFormNode.querySelector( '#upload-file' );
+const closeModalBtnNode = uploadFormNode.querySelector( '#upload-cancel' );
+const validationRules = new Pristine( uploadFormNode, {
   classTo: 'img-upload__text',
   errorTextParent: 'img-upload__text',
   errorTextTag: 'span',
 } );
+
+const openModal = () => {
+  modalOverlayNode.classList.remove( 'hidden' );
+  document.body.classList.add( 'modal-open' );
+  scaleImage();
+  hideUiSlider();
+  document.addEventListener( 'keydown', onEscKeydown );
+  uploadFormNode.addEventListener( 'click', onEffectClick );
+};
+
+const closeModal = () => {
+  if ( !document.body.classList.contains( 'is-showed-error' ) ) {
+    uploadFormNode.reset();
+    resetStyleElement( previewImageNode );
+    modalOverlayNode.classList.add( 'hidden' );
+    document.body.classList.remove( 'modal-open' );
+    uploadFormNode.removeEventListener( 'click', onEffectClick );
+    document.removeEventListener( 'keydown', onEscKeydown );
+  }
+};
 
 function onEscKeydown( evt ) {
   if ( isEscKey( evt ) ) {
@@ -29,30 +49,10 @@ function onEscKeydown( evt ) {
   }
 }
 
-function openModal() {
-  modalOverlay.classList.remove( 'hidden' );
-  document.body.classList.add( 'modal-open' );
-  scaleImage();
-  hideUiSlider();
-  document.addEventListener( 'keydown', onEscKeydown );
-  uploadForm.addEventListener( 'click', onEffectClick );
-}
-
-function closeModal() {
-  if ( !document.body.classList.contains( 'is-showed-error' ) ) {
-    uploadForm.reset();
-    resetStyleElement( previewImage );
-    modalOverlay.classList.add( 'hidden' );
-    document.body.classList.remove( 'modal-open' );
-    uploadForm.removeEventListener( 'click', onEffectClick );
-    document.removeEventListener( 'keydown', onEscKeydown );
-  }
-}
-
 export {
-  uploadForm,
-  uploadFileBtn,
-  closeModalBtn,
+  uploadFormNode,
+  uploadFileBtnNode,
+  closeModalBtnNode,
   openModal,
   closeModal,
   validationRules,

@@ -3,10 +3,10 @@ import {
 } from './get-posts.js';
 
 import {
-  showError,
+  showErrorMessage,
 } from './error-message.js';
 
-const postsContainer = document.querySelector( '.pictures' );
+const postsContainerNode = document.querySelector( '.pictures' );
 const postTemplate = document.querySelector( '#picture' ).content.querySelector( '.picture' );
 const postsFragment = document.createDocumentFragment();
 
@@ -26,8 +26,8 @@ function setupPost( {
 export function renderPosts() {
   getPosts().then( ( posts ) => {
     posts.forEach( setupPost );
-    postsContainer.appendChild( postsFragment );
+    postsContainerNode.appendChild( postsFragment );
   } ).catch( () => {
-    showError( 'Ошибка загрузки изображений', 'Как нибудь в другой раз' );
+    showErrorMessage( 'Ошибка загрузки изображений', 'Как нибудь в другой раз' );
   } );
 }

@@ -1,15 +1,11 @@
-function isEscKey( evt ) {
-  return evt.key === 'Escape';
-}
+const isEscKey = ( evt ) => evt.key === 'Escape';
 
-function resetStyleElement( element ) {
+const resetStyleElement = ( element ) => {
   element.removeAttribute( 'style' );
   element.removeAttribute( 'class' );
-}
+};
 
-function capitalizeString( str ) {
-  return str[ 0 ].toUpperCase() + str.slice( 1 );
-}
+const capitalizeString = ( str ) => str[ 0 ].toUpperCase() + str.slice( 1 );
 
 export {
   capitalizeString,
